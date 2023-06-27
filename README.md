@@ -129,3 +129,18 @@ calculate_results(y_true, y_pred):
       y_pred: predicted labels in the form of a 1D array
 
   Returns a dictionary of accuracy, precision, recall, f1-score.
+
+## <a id="cm"></a>Create Model
+
+create_model(model_url, num_classes=10):
+
+  Takes a TensorFlow Hub URL and creates a Keras Sequential model with it.
+
+  Args:
+    model_url (str): A TensorFlow Hub feature extraction URL.
+    num_classes (int): Number of output neurons in the output layer,
+      should be equal to the number of target classes, default 10.
+    
+  Returns:
+    An uncompiled Keras Sequential model with model_url as feature extractor
+    layer and Dense output layer with num_classes output neurons.
