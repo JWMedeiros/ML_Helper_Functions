@@ -12,6 +12,9 @@ A repo containing helpful machine learning functions to be used with ML projects
 [Unzip Data](#ud)
 [Walk Through Dir](#wtd)
 [Calculate Results](#cr)
+[Create Model](#cm)
+[Preprocess Img](#pi)
+
 
 ## <a id="lnpimg"></a>Load and Prep Image
 
@@ -65,7 +68,7 @@ pred_and_plot(model, filename, class_names):
 
 create_tensorboard_callback(dir_name, experiment_name):
 
-  Creates a TensorBoard callback instand to store log files.
+  Creates a TensorBoard callback instance to store log files.
 
   Stores log files with the filepath:
     "dir_name/experiment_name/current_datetime/"
@@ -144,3 +147,17 @@ create_model(model_url, num_classes=10):
   Returns:
     An uncompiled Keras Sequential model with model_url as feature extractor
     layer and Dense output layer with num_classes output neurons.
+
+## <a id="pi"></a>Preprocess Img
+
+preprocess_img(image, label, img_shape=224):
+
+  Converts image tensor from any datatype -> 'float32' and reshapes
+  image to [img_shape, img_shape, color_channels]
+
+## <a id="pacr"></a>Predict and Calculate Results
+
+predict_and_calculate_results(model, validation_data, validation_labels):
+
+  Uses a model to make predictions on data, then uses calculate results to generate the overall metrics for the performance of the model.
+  (Used with binary classification models)

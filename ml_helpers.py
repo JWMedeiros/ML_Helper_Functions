@@ -319,3 +319,27 @@ def create_model(model_url, num_classes=10):
   ])
 
   return model
+
+# Make a function for preprocessing images
+def preprocess_img(image, label, img_shape=224):
+  """
+  Converts image tensor from any datatype -> 'float32' and reshapes
+  image to [img_shape, img_shape, color_channels]
+  """
+  image=tf.image.resize(image, [img_shape, img_shape])
+  return tf.cast(image, tf.float32), label # return (float32_image, label) tuple
+
+
+def predict_and_calculate_results(model, validation_data, validation_labels):
+  """
+  Uses a model to make predictions on data, then uses calculate results to generate the overall metrics for the performance of the model.
+  (Used with binary classification models)
+  """
+  # Make predictions with model
+  model_pred_probs = model.predict(validation_data)
+  # Turn prediction probs into predictions
+  model_preds = tf.squeeze(tf.round(model_pred_probs))
+  # Calculate model results using the calculate results function (also in helpers)
+  model_results = calculate_results(y_true=validation_labels,
+                                    y_pred=model_preds)
+  return model_results
