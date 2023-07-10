@@ -14,6 +14,8 @@ A repo containing helpful machine learning functions to be used with ML projects
 [Calculate Results](#cr)
 [Create Model](#cm)
 [Preprocess Img](#pi)
+[Predict and Calculate Results](#pacr)
+[Pred Timer](#pt)
 
 
 ## <a id="lnpimg"></a>Load and Prep Image
@@ -161,3 +163,9 @@ predict_and_calculate_results(model, validation_data, validation_labels):
 
   Uses a model to make predictions on data, then uses calculate results to generate the overall metrics for the performance of the model.
   (Used with binary classification models)
+
+## <a id="pt"></a>Pred Timer
+
+pred_timer(model, samples):
+
+  Times how long a model takes to make predictions on samples.

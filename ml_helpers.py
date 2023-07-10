@@ -343,3 +343,15 @@ def predict_and_calculate_results(model, validation_data, validation_labels):
   model_results = calculate_results(y_true=validation_labels,
                                     y_pred=model_preds)
   return model_results
+
+import time
+def pred_timer(model, samples):
+  """
+  Times how long a model takes to make predictions on samples.
+  """
+  start_time = time.perf_counter() # Get start time
+  model.predict(samples) # Make preds
+  end_time = time.perf_counter() # Get finish time
+  total_time = end_time-start_time # Calculate how long preds took to make
+  time_per_pred = total_time/len(samples)
+  return total_time, time_per_pred
