@@ -14,7 +14,7 @@ A repo containing helpful machine learning functions to be used with ML projects
 [Calculate Results](#cr)
 [Create Model](#cm)
 [Preprocess Img](#pi)
-[Predict and Calculate Results](#pacr)
+[Predict and Calculate Results Binary](#pacrb)
 [Pred Timer](#pt)
 
 
@@ -157,12 +157,20 @@ preprocess_img(image, label, img_shape=224):
   Converts image tensor from any datatype -> 'float32' and reshapes
   image to [img_shape, img_shape, color_channels]
 
-## <a id="pacr"></a>Predict and Calculate Results
+## <a id="pacrb"></a>Predict and Calculate Results Binary
 
 predict_and_calculate_results(model, validation_data, validation_labels):
 
   Uses a model to make predictions on data, then uses calculate results to generate the overall metrics for the performance of the model.
   (Used with binary classification models)
+
+## <a id="pacrm"></a>Predict and Calculate Results Multiclass
+
+predict_and_calculate_results_multiclass(model, validation_data, validation_labels):
+
+  Uses a model to make predictions on data, then uses calculate results to generate the overall metrics for the performance of the model.
+  (Used with multi-class classification models)
+
 
 ## <a id="pt"></a>Pred Timer
 

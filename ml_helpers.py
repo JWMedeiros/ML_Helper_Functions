@@ -330,7 +330,7 @@ def preprocess_img(image, label, img_shape=224):
   return tf.cast(image, tf.float32), label # return (float32_image, label) tuple
 
 
-def predict_and_calculate_results(model, validation_data, validation_labels):
+def predict_and_calculate_results_binary(model, validation_data, validation_labels):
   """
   Uses a model to make predictions on data, then uses calculate results to generate the overall metrics for the performance of the model.
   (Used with binary classification models)
@@ -355,3 +355,17 @@ def pred_timer(model, samples):
   total_time = end_time-start_time # Calculate how long preds took to make
   time_per_pred = total_time/len(samples)
   return total_time, time_per_pred
+
+def predict_and_calculate_results_multiclass(model, validation_data, validation_labels):
+  """
+  Uses a model to make predictions on data, then uses calculate results to generate the overall metrics for the performance of the model.
+  (Used with multi-class classification models)
+  """
+  # Make predictions with model
+  model_pred_probs = model.predict(validation_data)
+  # Turn prediction probs into predictions
+  model_preds = tf.argmax(model_pred_probs, axis=1)
+  # Calculate model results using the calculate results function (also in helpers)
+  model_results = calculate_results(y_true=validation_labels,
+                                    y_pred=model_preds)
+  return model_results
