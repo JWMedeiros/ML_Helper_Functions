@@ -16,6 +16,7 @@ A repo containing helpful machine learning functions to be used with ML projects
 [Preprocess Img](#pi)
 [Predict and Calculate Results Binary](#pacrb)
 [Pred Timer](#pt)
+[Plot Time Series](#pts)
 
 
 ## <a id="lnpimg"></a>Load and Prep Image
@@ -177,3 +178,27 @@ predict_and_calculate_results_multiclass(model, validation_data, validation_labe
 pred_timer(model, samples):
 
   Times how long a model takes to make predictions on samples.
+
+## <a id="cbpd"></a>Combine Batch Prefetch Datasets
+
+combine_batch_prefetch_datasets (sentences, characters, labels):
+
+  Takes in two sets of data, a list of sentences and a list of characters and one-hot encoded labels
+  Combines the two datasets and zips with the labels, then prefetches and batches the new dataset and returns it.
+  The list of sentences and characters must share the same length, and labels (essentially from the same dataset.)
+
+
+## <a id="pts"></a>Plot Time Series
+
+plot_time_series(timesteps, values, format='.', start=0, end=None, label=None, ylabel='BTC Price'):
+
+  Plots timesteps (a series of points in time) against values (a series of values across timesteps).
+
+  Parameters
+  -----------
+  timesteps: array of timestep values
+  values: array of values across time
+  format: style of plot, default is '.'
+  start: where to start the plot (setting a value will index from start of timesteps and values)
+  end: where to end the plot (similar to start but for the end)
+  label: label to show on plot about values

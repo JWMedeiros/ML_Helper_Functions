@@ -369,3 +369,38 @@ def predict_and_calculate_results_multiclass(model, validation_data, validation_
   model_results = calculate_results(y_true=validation_labels,
                                     y_pred=model_preds)
   return model_results
+
+# Combine chars and tokens into a training dataset
+def combine_batch_prefetch_datasets (sentences, characters, labels):
+  """
+  Takes in two sets of data, a list of sentences and a list of characters and one-hot encoded labels
+  Combines the two datasets and zips with the labels, then prefetches and batches the new dataset and returns it.
+  The list of sentences and characters must share the same length, and labels (essentially from the same dataset.)
+  """
+  combined_data = tf.data.Dataset.from_tensor_slices((sentences, characters)) # Create tuple of datasets
+  label_data = tf.data.Dataset.from_tensor_slices(labels) # make labels (using 1 hot labels)
+  dataset = tf.data.Dataset.zip((combined_data, label_data))# Combine data and labels
+
+  # Prefetch and batch train data
+  return dataset.batch(32).prefetch(tf.data.AUTOTUNE)
+
+def plot_time_series(timesteps, values, format='.', start=0, end=None, label=None, ylabel='BTC Price'):
+  """
+  Plots timesteps (a series of points in time) against values (a series of values across timesteps).
+
+  Parameters
+  -----------
+  timesteps: array of timestep values
+  values: array of values across time
+  format: style of plot, default is '.'
+  start: where to start the plot (setting a value will index from start of timesteps and values)
+  end: where to end the plot (similar to start but for the end)
+  label: label to show on plot about values
+  """
+  # Plot the series
+  plt.plot(timesteps[start:end], values[start:end], format, label=label)
+  plt.xlabel("Time")
+  plt.ylabel(ylabel=ylabel)
+  if label:
+    plt.legend(fontsize=14) # make label bigger
+  plt.grid(True)
