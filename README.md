@@ -206,13 +206,30 @@ plot_time_series(timesteps, values, format='.', start=0, end=None, label=None, y
   label: label to show on plot about values
 
 ## <a id="mase"></a>Mean Absolute Scaled Error
+
 mean_absolute_scaled_error(y_true, y_pred):
 
   Implement MASE (assuming no seasonality of data).
 
 ## <a id="ep"></a>Evaluate Preds
+
 evaluate_preds (y_true, y_pred):
 
   Takes in y_true and y_pred for a regression problem, and returns all available metrics in dictionary format for evaluation purposes.
 
   Requires mean_absolute_scaled_error() helper function
+
+## <a id="glw"></a>Get Labelled Window
+
+get_labelled_window(x, horizon):
+
+  Creates labels for windowed dataset.
+
+  E.G. if horizon=1
+  Input: [0,1,2,3,4,5,6,7] -> Output: ([0,1,2,3,4,5,6], [7])
+
+## <a id="mw"></a>Make Windows
+
+make_windows(x, window_size, horizon):
+
+  Turns a 1D array into a 2D array of sequential labelled windows of window_size with horizon size labels.

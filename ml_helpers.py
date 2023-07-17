@@ -438,3 +438,30 @@ def evaluate_preds (y_true, y_pred):
           'RMSE': rmse.numpy(),
           'MAPE': mape.numpy(),
           'MASE': mase.numpy()}
+
+def get_labelled_window(x, horizon):
+  """
+  Creates labels for windowed dataset.
+
+  E.G. if horizon=1
+  Input: [0,1,2,3,4,5,6,7] -> Output: ([0,1,2,3,4,5,6], [7])
+  """
+  return x[:,:-horizon], x[:,-horizon:]
+
+def make_windows(x,window_size, horizon):
+  """
+  Turns a 1D array into a 2D array of sequential labelled windows of window_size with horizon size labels.
+  """
+  #1. Create a window of specific window_size (add the horizon on the end for labelling later)
+  window_step = np.expand_dims(np.arange(window_size+horizon), axis=0)
+
+  #2. Create a 2D array of multiple window steps (minus 1 to account for 0 indexing)
+  window_indexes = window_step + np.expand_dims(np.arange(len(x)-(window_size+horizon-1)), axis=0).T # Create 2D array of windows of size window_size
+
+  #3. Inded on the target array (a time series) with 2D array of multiple window steps
+  windowed_array = x[window_indexes]
+
+  #4. Get the labelled windows
+  windows, labels = get_labelled_window(windowed_array, horizon=horizon)
+
+  return windows,labels
