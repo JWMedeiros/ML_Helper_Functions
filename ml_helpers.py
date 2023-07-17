@@ -404,3 +404,37 @@ def plot_time_series(timesteps, values, format='.', start=0, end=None, label=Non
   if label:
     plt.legend(fontsize=14) # make label bigger
   plt.grid(True)
+
+def mean_absolute_scaled_error(y_true, y_pred):
+  """
+  Implement MASE (assuming no seasonality of data).
+  """
+  mae = tf.reduce_mean(tf.abs(y_true-y_pred))
+
+  # Find MAE of naive forecast (no seasonality)
+  mae_naive_no_season = tf.reduce_mean(tf.abs(y_true[1:]-y_true[:-1])) # Our seasonality is 1 day (hence the shift of 1)
+
+  return mae/mae_naive_no_season
+
+def evaluate_preds (y_true, y_pred):
+  """
+  Takes in y_true and y_pred for a regression problem, and returns all available metrics in dictionary format for evaluation purposes.
+
+  Requires mean_absolute_scaled_error() helper function
+  """
+  # Make sure float32 dtype (for metric calculations)
+  y_true = tf.cast(y_true, dtype = tf.float32)
+  y_pred = tf.cast(y_pred, dtype = tf.float32)
+
+  # Calculate various evaluation metrics
+  mae = tf.keras.metrics.mean_absolute_error(y_true, y_pred)
+  mse = tf.keras.metrics.mean_squared_error(y_true, y_pred)
+  rmse = tf.sqrt(mse)
+  mape = tf.keras.metrics.mean_absolute_percentage_error(y_true, y_pred)
+  mase = mean_absolute_scaled_error(y_true, y_pred)
+
+  return {'MAE': mae.numpy(),
+          'MSE': mse.numpy(),
+          'RMSE': rmse.numpy(),
+          'MAPE': mape.numpy(),
+          'MASE': mase.numpy()}

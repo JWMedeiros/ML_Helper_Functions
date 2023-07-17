@@ -17,6 +17,8 @@ A repo containing helpful machine learning functions to be used with ML projects
 [Predict and Calculate Results Binary](#pacrb)
 [Pred Timer](#pt)
 [Plot Time Series](#pts)
+[Mean Absolute Scaled Error](#mase)
+[Evaluate Preds](#ep)
 
 
 ## <a id="lnpimg"></a>Load and Prep Image
@@ -202,3 +204,15 @@ plot_time_series(timesteps, values, format='.', start=0, end=None, label=None, y
   start: where to start the plot (setting a value will index from start of timesteps and values)
   end: where to end the plot (similar to start but for the end)
   label: label to show on plot about values
+
+## <a id="mase"></a>Mean Absolute Scaled Error
+mean_absolute_scaled_error(y_true, y_pred):
+
+  Implement MASE (assuming no seasonality of data).
+
+## <a id="ep"></a>Evaluate Preds
+evaluate_preds (y_true, y_pred):
+
+  Takes in y_true and y_pred for a regression problem, and returns all available metrics in dictionary format for evaluation purposes.
+
+  Requires mean_absolute_scaled_error() helper function
