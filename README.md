@@ -3,22 +3,29 @@ A repo containing helpful machine learning functions to be used with ML projects
 
 ## Function Descriptions:
 
+[Calculate Results](#cr)
+[Combine Batch Prefetch Datasets](#cbpd)
+[Compare Histoys](#ch)
+[Create Model](#cm)
+[Create Model Checkpoint](#cmc)
+[Create Tensorboard Callback](#ctc)
+[Evaluate Preds](#ep)
+[Get Labelled Window](#glw)
 [Load and Prep Image](#lnpimg)
 [Make Confusion Matrix](#mcm)
-[Pred and Plot](#pnp)
-[Create Tensorboard Callback](#ctc)
+[Make Preds](#mp)
+[Make Train Test Splits](#mtts)
+[Make Window](#mw)
+[Mean Absolute Scaled Error](#mase)
 [Plot Loss Curves](#plc)
-[Compare Histoys](#ch)
+[Plot Time Series](#pts)
+[Pred and Plot](#pnp)
+[Predict and Calculate Results Binary](#pacrb)
+[Predict and Calculate Results Multiclass](#pacrm)
+[Pred Timer](#pt)
+[Preprocess Img](#pi)
 [Unzip Data](#ud)
 [Walk Through Dir](#wtd)
-[Calculate Results](#cr)
-[Create Model](#cm)
-[Preprocess Img](#pi)
-[Predict and Calculate Results Binary](#pacrb)
-[Pred Timer](#pt)
-[Plot Time Series](#pts)
-[Mean Absolute Scaled Error](#mase)
-[Evaluate Preds](#ep)
 
 
 ## <a id="lnpimg"></a>Load and Prep Image
@@ -196,8 +203,8 @@ plot_time_series(timesteps, values, format='.', start=0, end=None, label=None, y
 
   Plots timesteps (a series of points in time) against values (a series of values across timesteps).
 
-  Parameters
-  -----------
+  Parameters:
+
   timesteps: array of timestep values
   values: array of values across time
   format: style of plot, default is '.'
@@ -233,3 +240,20 @@ get_labelled_window(x, horizon):
 make_windows(x, window_size, horizon):
 
   Turns a 1D array into a 2D array of sequential labelled windows of window_size with horizon size labels.
+
+## <a id="mtts"></a>Make Train Test Splits
+
+make_train_test_splits(windows,labels, test_split=0.2):
+
+  Splits matching pairs of windows and labels into train and test splits.
+
+## <a id="cmc"></a>Create Model Checkpoint
+
+create_model_checkpoint(model_name, save_path='model_experiments'):
+
+  Creates a model checkpoint callback by combining the model name and the save path variable
+
+## <a id="mp"></a>Make Preds
+make_preds(model, input_data):
+
+  Uses model to make predictions on input_data
